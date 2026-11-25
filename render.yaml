@@ -1,0 +1,23 @@
+# Blueprint de Render para el backend (Render > New > Blueprint).
+# Las variables marcadas con "sync: false" se capturan en el panel de Render,
+# nunca se escriben en el repositorio.
+services:
+  - type: web
+    name: acopiomap-api
+    runtime: node
+    rootDir: backend
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: MONGODB_URI
+        sync: false
+      - key: MONGODB_DB_NAME
+        value: acopiomap
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 8h
+      - key: CORS_ORIGIN
+        sync: false
